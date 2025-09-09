@@ -1,12 +1,16 @@
-// frontend/src/main.jsx
-// ... imports
-import { SocketContextProvider } from './context/SocketContext.jsx'; // <-- Import
+import React from 'react';
+import ReactDOM from 'react-dom/client'; // <-- THIS IS THE MISSING LINE
+import App from './App.jsx';
+import './index.css';
+import { BrowserRouter } from 'react-router-dom';
+import { AuthContextProvider } from './context/AuthContext.jsx';
+import { SocketContextProvider } from './context/SocketContext.jsx';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <BrowserRouter>
       <AuthContextProvider>
-        <SocketContextProvider> {/* <-- Add the wrapper */}
+        <SocketContextProvider>
           <App />
         </SocketContextProvider>
       </AuthContextProvider>
