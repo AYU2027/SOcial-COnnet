@@ -23,8 +23,13 @@ const useLogin = () => {
                 throw new Error(data.error);
             }
 
+            // --- THIS IS THE CRITICAL PART ---
+            // 1. Save the user data to local storage
             localStorage.setItem("chat-user", JSON.stringify(data));
+            // 2. Update the Auth Context to trigger a re-render
             setAuthUser(data);
+            // --------------------------------
+
         } catch (error) {
             toast.error(error.message);
         } finally {

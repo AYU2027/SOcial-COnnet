@@ -1,5 +1,5 @@
 import useGetUsers from "../../../hooks/useGetUsers";
-import Conversation from "./Conversation"; // <-- Add this import
+import Conversation from "./Conversation";
 
 const Conversations = () => {
     const { loading, users } = useGetUsers();
@@ -8,7 +8,6 @@ const Conversations = () => {
             {users.map((user) => (
                 <Conversation key={user._id} user={user} />
             ))}
-
             {loading ? <span className='loading loading-spinner mx-auto'></span> : null}
         </div>
     );
