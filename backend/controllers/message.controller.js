@@ -1,5 +1,6 @@
 import Conversation from "../models/conversation.model.js";
 import Message from "../models/message.model.js";
+import { getReceiverSocketId, io } from "../socket.js";
 
 export const sendMessage = async (req, res) => {
     try {
@@ -31,10 +32,16 @@ export const sendMessage = async (req, res) => {
             conversation.messages.push(newMessage._id);
         }
 
-        // This will run both save operations in parallel, which is more efficient
+        // This will run both save operations in parallel for better performance
         await Promise.all([conversation.save(), newMessage.save()]);
 
-        // SOCKET IO LOGIC WILL GO HERE LATER
+        // --- SOCKET.IO REAL-TIME FUNCTIONALITY ---
+        const receiverSocketId = getReceiverSocketId(receiverId);
+        if (receiverSocketId) {
+            // io.to(<socket_id>).emit() sends an event to a specific client
+            io.to(receiverSocketId).emit("newMessage", newMessage);
+        }
+        // -----------------------------------------
 
         res.status(201).json(newMessage);
     } catch (error) {
@@ -49,13 +56,13 @@ export const getMessages = async (req, res) => {
         const senderId = req.user._id;
 
         // Find the conversation containing both the sender and the receiver
-        // .populate() will replace message IDs with actual message documents
+        // .populate("messages") will replace the message IDs with the actual message documents
         const conversation = await Conversation.findOne({
             participants: { $all: [senderId, userToChatId] },
         }).populate("messages");
 
         if (!conversation) {
-            // If no conversation exists, there are no messages to return
+            // If no conversation exists yet, return an empty array
             return res.status(200).json([]);
         }
 

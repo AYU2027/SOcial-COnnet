@@ -1,15 +1,14 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import App from './App.jsx';
-import './index.css';
-import { BrowserRouter } from 'react-router-dom';
-import { AuthContextProvider } from './context/AuthContext.jsx'; // <-- Import
+// frontend/src/main.jsx
+// ... imports
+import { SocketContextProvider } from './context/SocketContext.jsx'; // <-- Import
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <BrowserRouter>
-      <AuthContextProvider> {/* <-- Add this wrapper */}
-        <App />
+      <AuthContextProvider>
+        <SocketContextProvider> {/* <-- Add the wrapper */}
+          <App />
+        </SocketContextProvider>
       </AuthContextProvider>
     </BrowserRouter>
   </React.StrictMode>,

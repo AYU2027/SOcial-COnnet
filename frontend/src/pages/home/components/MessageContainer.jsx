@@ -1,11 +1,15 @@
+import { useEffect } from "react";
 import useConversation from "../../../zustand/useConversation";
 import MessageInput from "./MessageInput";
 import Messages from "./Messages";
 import NoChatSelected from "./NoChatSelected.jsx";
-import { useEffect } from "react";
+import useListenMessages from "../../../hooks/useListenMessages";
 
 const MessageContainer = () => {
     const { selectedConversation, setSelectedConversation } = useConversation();
+
+    // This hook starts the real-time listener for new messages
+    useListenMessages();
 
     // This useEffect is a cleanup function. When the component unmounts
     // (e.g., when the user logs out), it will clear the selected conversation,
@@ -33,4 +37,5 @@ const MessageContainer = () => {
         </div>
     );
 };
+
 export default MessageContainer;
