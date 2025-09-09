@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import GenderCheckbox from "../../components/GenderCheckbox";
 import { useState } from "react";
-import toast from "react-hot-toast";
+import useSignup from "../../hooks/useSignup"; // <-- Import the hook
 
 const SignUp = () => {
     const [inputs, setInputs] = useState({
@@ -12,16 +12,15 @@ const SignUp = () => {
         gender: "",
     });
 
+    const { loading, signup } = useSignup(); // <-- Use the hook
+
     const handleCheckboxChange = (gender) => {
         setInputs({ ...inputs, gender });
     };
 
     const handleSubmit = async (e) => {
-        e.preventDefault(); // Prevent page refresh
-        // For now, we'll just log the data and show a toast
-        console.log(inputs);
-        toast.success("Signup functionality will be added soon!");
-        // Later, we will add the logic to call the API
+        e.preventDefault();
+        await signup(inputs); // <-- Call the signup function from the hook
     };
 
     return (
@@ -32,6 +31,8 @@ const SignUp = () => {
                 </h1>
 
                 <form onSubmit={handleSubmit}>
+                    {/* Input fields remain the same */}
+                    {/* ... (fullName, username, password, confirmPassword inputs) ... */}
                     <div>
                         <label className='label p-2'>
                             <span className='text-base label-text'>Full Name</span>
@@ -44,7 +45,6 @@ const SignUp = () => {
                             onChange={(e) => setInputs({ ...inputs, fullName: e.target.value })}
                         />
                     </div>
-
                     <div>
                         <label className='label p-2 '>
                             <span className='text-base label-text'>Username</span>
@@ -57,7 +57,6 @@ const SignUp = () => {
                             onChange={(e) => setInputs({ ...inputs, username: e.target.value })}
                         />
                     </div>
-
                     <div>
                         <label className='label'>
                             <span className='text-base label-text'>Password</span>
@@ -70,7 +69,6 @@ const SignUp = () => {
                             onChange={(e) => setInputs({ ...inputs, password: e.target.value })}
                         />
                     </div>
-
                     <div>
                         <label className='label'>
                             <span className='text-base label-text'>Confirm Password</span>
@@ -91,8 +89,8 @@ const SignUp = () => {
                     </Link>
 
                     <div>
-                        <button className='btn btn-block btn-sm mt-2 border border-slate-700'>
-                            Sign Up
+                        <button className='btn btn-block btn-sm mt-2 border border-slate-700' disabled={loading}>
+                            {loading ? <span className='loading loading-spinner'></span> : "Sign Up"}
                         </button>
                     </div>
                 </form>

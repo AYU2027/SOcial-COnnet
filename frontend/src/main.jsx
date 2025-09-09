@@ -2,12 +2,15 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App.jsx';
 import './index.css';
-import { BrowserRouter } from 'react-router-dom'; // <-- Import this
+import { BrowserRouter } from 'react-router-dom';
+import { AuthContextProvider } from './context/AuthContext.jsx'; // <-- Import
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <BrowserRouter>  {/* <-- Add this */}
-      <App />
-    </BrowserRouter> {/* <-- And this */}
+    <BrowserRouter>
+      <AuthContextProvider> {/* <-- Add this wrapper */}
+        <App />
+      </AuthContextProvider>
+    </BrowserRouter>
   </React.StrictMode>,
 );
