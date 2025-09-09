@@ -1,12 +1,15 @@
-// In backend/routes/auth.routes.js
 import express from "express";
-import { signup, login, logout } from "../controllers/auth.controller.js"; // Import controllers
+import { signup, login, logout } from "../controllers/auth.controller.js";
 
 const router = express.Router();
 
-router.post("/signup", signup); // Connect the route to the controller function
+// Route for user signup
+router.post("/signup", signup);
 
-// router.post("/login", login);
-// router.post("/logout", logout);
+// Route for user login
+router.post("/login", login);
+
+// Route for user logout
+router.post("/logout", logout);
 
 export default router;
