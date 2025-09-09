@@ -1,32 +1,16 @@
-import useConversation from "../../../zustand/useConversation";
+import useGetUsers from "../../../hooks/useGetUsers";
+import Conversation from "./Conversation"; // <-- Add this import
 
-const Conversation = ({ user }) => {
-    const { selectedConversation, setSelectedConversation } = useConversation();
-
-    const isSelected = selectedConversation?._id === user._id;
-
+const Conversations = () => {
+    const { loading, users } = useGetUsers();
     return (
-        <>
-            <div
-                className={`flex gap-2 items-center hover:bg-sky-500 rounded p-2 py-1 cursor-pointer
-                    ${isSelected ? "bg-sky-500" : ""}
-                `}
-                onClick={() => setSelectedConversation(user)}
-            >
-                <div className='avatar online'>
-                    <div className='w-12 rounded-full'>
-                        <img src={user.profilePic} alt='user avatar' />
-                    </div>
-                </div>
+        <div className='py-2 flex flex-col overflow-auto'>
+            {users.map((user) => (
+                <Conversation key={user._id} user={user} />
+            ))}
 
-                <div className='flex flex-col flex-1'>
-                    <div className='flex gap-3 justify-between'>
-                        <p className='font-bold text-gray-200'>{user.fullName}</p>
-                    </div>
-                </div>
-            </div>
-            <div className='divider my-0 py-0 h-1' />
-        </>
+            {loading ? <span className='loading loading-spinner mx-auto'></span> : null}
+        </div>
     );
 };
-export default Conversation;
+export default Conversations;
