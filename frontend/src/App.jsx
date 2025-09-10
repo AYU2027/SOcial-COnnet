@@ -12,10 +12,11 @@ function App() {
 
   return (
     <>
-      {/* The Navbar is now ALWAYS visible */}
-      <Navbar />
+      {/* Use the new mesh gradient background */}
+      <div className="mesh-gradient-bg"></div>
 
-      {/* The main content area now has padding-top to not be hidden by the navbar */}
+      <Navbar />
+      
       <main className='pt-28 h-screen flex items-center justify-center'>
         <Routes>
           <Route path='/' element={authUser ? <Navigate to='/chat' /> : <LandingPage />} />
@@ -23,8 +24,9 @@ function App() {
           <Route path='/login' element={authUser ? <Navigate to='/chat' /> : <Login />} />
           <Route path='/signup' element={authUser ? <Navigate to='/chat' /> : <SignUp />} />
         </Routes>
-        <Toaster />
       </main>
+
+      <Toaster />
     </>
   );
 }

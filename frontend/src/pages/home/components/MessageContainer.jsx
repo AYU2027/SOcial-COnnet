@@ -4,31 +4,37 @@ import MessageInput from "./MessageInput";
 import Messages from "./Messages";
 import NoChatSelected from "./NoChatSelected.jsx";
 import useListenMessages from "../../../hooks/useListenMessages";
+import { useSocketContext } from "../../../context/SocketContext";
 
 const MessageContainer = () => {
     const { selectedConversation, setSelectedConversation } = useConversation();
-
-    // This hook starts the real-time listener for new messages
     useListenMessages();
+    const { onlineUsers } = useSocketContext();
+    const isOnline = selectedConversation ? onlineUsers.includes(selectedConversation._id) : false;
 
-    // This useEffect is a cleanup function. When the component unmounts
-    // (e.g., when the user logs out), it will clear the selected conversation,
-    // so you don't briefly see the old chat when you log in as a new user.
     useEffect(() => {
         return () => setSelectedConversation(null);
     }, [setSelectedConversation]);
 
     return (
-        <div className='md:min-w-[450px] flex flex-col'>
+        // The container now has the new background pattern
+        <div className='md:min-w-[450px] flex flex-col flex-1 chat-bg-pattern'>
             {!selectedConversation ? (
                 <NoChatSelected />
             ) : (
                 <>
-                    {/* Header */}
-                    <div className='bg-slate-500 px-4 py-2 mb-2'>
-                        <span className='label-text'>To:</span>{" "}
-                        <span className='text-gray-900 font-bold'>{selectedConversation.fullName}</span>
-                    </div>
+                    {/* New, more informative header */}
+                    <header className='bg-base-200/50 backdrop-blur-sm px-4 py-2 flex items-center gap-4 shadow-sm'>
+                        <div className={`avatar ${isOnline ? "online" : "offline"}`}>
+                            <div className="w-10 rounded-full">
+                                <img src={selectedConversation.profilePic} alt="user avatar" />
+                            </div>
+                        </div>
+                        <div className="flex flex-col">
+                            <span className='text-gray-200 font-bold'>{selectedConversation.fullName}</span>
+                            <span className="text-xs text-gray-400">{isOnline ? "Online" : "Offline"}</span>
+                        </div>
+                    </header>
 
                     <Messages />
                     <MessageInput />
@@ -37,5 +43,4 @@ const MessageContainer = () => {
         </div>
     );
 };
-
 export default MessageContainer;

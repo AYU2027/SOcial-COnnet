@@ -1,12 +1,22 @@
 import express from "express";
 import protectRoute from "../middleware/protectRoute.js";
-import { addFriend } from "../controllers/friend.controller.js";
+import {
+    sendFriendRequest,
+    acceptFriendRequest,
+    declineFriendRequest,
+    removeFriend,
+    getFriendRequests
+} from "../controllers/friend.controller.js";
 
 const router = express.Router();
 
-// Route to add a friend. The :id is the ID of the user to be added.
-router.post("/add/:id", protectRoute, addFriend);
+// Friend Request Routes
+router.post("/send/:id", protectRoute, sendFriendRequest);
+router.post("/accept/:id", protectRoute, acceptFriendRequest);
+router.post("/decline/:id", protectRoute, declineFriendRequest);
+router.get("/requests", protectRoute, getFriendRequests);
 
-// We will add routes for removeFriend, etc., here later
+// Existing Friend Management
+router.post("/remove/:id", protectRoute, removeFriend);
 
 export default router;

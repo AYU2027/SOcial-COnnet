@@ -1,11 +1,11 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import useLogin from "../../hooks/useLogin";
+import { FaTelegramPlane } from "react-icons/fa";
 
 const Login = () => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
-
     const { loading, login } = useLogin();
 
     const handleSubmit = async (e) => {
@@ -14,47 +14,43 @@ const Login = () => {
     };
 
     return (
-        <div className='flex flex-col items-center justify-center min-w-96 mx-auto'>
-            <div className='w-full p-6 rounded-lg shadow-md bg-gray-400 bg-clip-padding backdrop-filter backdrop-blur-lg bg-opacity-0'>
-                <h1 className='text-3xl font-semibold text-center text-gray-300'>
-                    Login
-                    <span className='text-blue-500'> ChatApp</span>
-                </h1>
-                <form onSubmit={handleSubmit}>
-                    <div>
-                        <label className='label p-2'>
-                            <span className='text-base label-text'>Username</span>
-                        </label>
-                        <input
-                            type='text'
-                            placeholder='Enter username'
-                            className='w-full input input-bordered h-10'
-                            value={username}
-                            onChange={(e) => setUsername(e.target.value)}
-                        />
-                    </div>
-                    <div>
-                        <label className='label'>
-                            <span className='text-base label-text'>Password</span>
-                        </label>
-                        <input
-                            type='password'
-                            placeholder='Enter Password'
-                            className='w-full input input-bordered h-10'
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                        />
-                    </div>
-                    <Link to='/signup' className='text-sm  hover:underline hover:text-blue-600 mt-2 inline-block'>
-                        {"Don't"} have an account?
+        <div className='flex flex-col items-center justify-center w-full max-w-md px-4'>
+            <FaTelegramPlane className="text-6xl text-white mb-6" />
+            <h1 className='text-3xl font-semibold text-center text-gray-200 mb-2'>
+                Sign in to <span className='font-bold'>SOcial</span><span className='font-light'>COnnect</span>
+            </h1>
+            <p className="text-gray-400 mb-8">Welcome back!</p>
+            
+            <form onSubmit={handleSubmit} className="w-full">
+                <div className="form-control">
+                    <input
+                        type='text'
+                        placeholder='Username'
+                        className='input input-bordered h-12 w-full bg-gray-700/50 rounded-lg text-lg'
+                        value={username}
+                        onChange={(e) => setUsername(e.target.value)}
+                    />
+                </div>
+                <div className="form-control mt-4">
+                    <input
+                        type='password'
+                        placeholder='Password'
+                        className='input input-bordered h-12 w-full bg-gray-700/50 rounded-lg text-lg'
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                    />
+                </div>
+                <div className="mt-6">
+                    <button className='btn btn-info btn-block h-12 rounded-lg text-lg' disabled={loading}>
+                        {loading ? <span className="loading loading-spinner"></span> : "Login"}
+                    </button>
+                </div>
+                <div className="text-center mt-6">
+                    <Link to='/signup' className='text-sm text-gray-400 hover:underline hover:text-blue-400'>
+                        Don't have an account? Sign Up
                     </Link>
-                    <div>
-                        <button className='btn btn-block btn-sm mt-2' disabled={loading}>
-                            {loading ? <span className="loading loading-spinner"></span> : "Login"}
-                        </button>
-                    </div>
-                </form>
-            </div>
+                </div>
+            </form>
         </div>
     );
 };

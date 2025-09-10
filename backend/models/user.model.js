@@ -24,13 +24,11 @@ const userSchema = new mongoose.Schema({
         type: String,
         default: "",
     },
-    // --- NEW FIELD ---
-    friends: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "User",
-        default: []
-    }],
-    // -----------------
+    // --- UPDATED FRIEND SYSTEM ---
+    friends: [{ type: mongoose.Schema.Types.ObjectId, ref: "User", default: [] }],
+    friendRequestsSent: [{ type: mongoose.Schema.Types.ObjectId, ref: "User", default: [] }],
+    friendRequestsReceived: [{ type: mongoose.Schema.Types.ObjectId, ref: "User", default: [] }],
+    // ----------------------------
 }, { timestamps: true });
 
 const User = mongoose.model("User", userSchema);

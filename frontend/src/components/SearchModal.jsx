@@ -3,18 +3,19 @@ import toast from "react-hot-toast";
 import useGetUsers from "../hooks/useGetUsers";
 import { IoPersonAddOutline } from "react-icons/io5";
 
-// This is the search result item component
+// This is the search result item component (child)
 const SearchResultItem = ({ user }) => {
-    const handleAddFriend = async () => {
+    const handleSendRequest = async () => {
         try {
-            const res = await fetch(`/api/friends/add/${user._id}`, {
+            // This now calls the 'send' endpoint
+            const res = await fetch(`/api/friends/send/${user._id}`, {
                 method: "POST",
             });
             const data = await res.json();
             if (data.error) {
                 throw new Error(data.error);
             }
-            toast.success(`Friend request sent to ${user.fullName}!`); // In a real app, this would be a request
+            toast.success(`Friend request sent to ${user.fullName}!`);
         } catch (error) {
             toast.error(error.message);
         }
@@ -30,7 +31,7 @@ const SearchResultItem = ({ user }) => {
                 </div>
                 <span>{user.fullName}</span>
             </div>
-            <button className="btn btn-sm btn-circle" onClick={handleAddFriend}>
+            <button className="btn btn-sm btn-circle" onClick={handleSendRequest}>
                 <IoPersonAddOutline className="w-5 h-5" />
             </button>
         </div>
@@ -38,7 +39,7 @@ const SearchResultItem = ({ user }) => {
 };
 
 
-// This is the main modal component
+// This is the main modal component (parent)
 const SearchModal = ({ modalId }) => {
     const [search, setSearch] = useState("");
     const { users } = useGetUsers(); // Hook to get ALL users
@@ -59,10 +60,10 @@ const SearchModal = ({ modalId }) => {
     return (
         <dialog id={modalId} className="modal">
             <div className="modal-box">
-                <h3 className="font-bold text-lg mb-4">Add a Friend</h3>
+                <h3 className="font-bold text-lg mb-4">Find & Add a Friend</h3>
                 <input
                     type="text"
-                    placeholder="Search for users..."
+                    placeholder="Search by full name..."
                     className="input input-bordered w-full"
                     value={search}
                     onChange={(e) => setSearch(e.target.value)}
@@ -71,7 +72,7 @@ const SearchModal = ({ modalId }) => {
                     {filteredUsers.length > 0 ? (
                         filteredUsers.map((user) => <SearchResultItem key={user._id} user={user} />)
                     ) : (
-                        <p className="text-center">No users found.</p>
+                         search.trim().length > 0 && <p className="text-center">No users found.</p>
                     )}
                 </div>
             </div>

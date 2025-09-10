@@ -1,13 +1,14 @@
 import express from "express";
-import { sendMessage, getMessages } from "../controllers/message.controller.js";
+import { sendMessage, getMessages, deleteMessage } from "../controllers/message.controller.js"; // <-- Import deleteMessage
 import protectRoute from "../middleware/protectRoute.js";
 
 const router = express.Router();
 
-// Route to get messages between the logged-in user and the user specified by :id
 router.get("/:id", protectRoute, getMessages);
-
-// Route to send a message to the user specified by :id
 router.post("/send/:id", protectRoute, sendMessage);
+
+// --- NEW ROUTE ---
+// The :id parameter is the ID of the message to be deleted
+router.delete("/:id", protectRoute, deleteMessage);
 
 export default router;

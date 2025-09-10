@@ -1,3 +1,45 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* --- NEW MESH GRADIENT BACKGROUND (TELEGRAM STYLE) --- */
+/* This will be the base background for the entire app */
+.mesh-gradient-bg {
+    background: radial-gradient(at 27% 37%, hsla(215, 98%, 62%, 1) 0px, transparent 50%),
+                radial-gradient(at 97% 21%, hsla(125, 98%, 72%, 1) 0px, transparent 50%),
+                radial-gradient(at 52% 99%, hsla(355, 98%, 76%, 1) 0px, transparent 50%),
+                radial-gradient(at 10% 29%, hsla(256, 96%, 68%, 1) 0px, transparent 50%),
+                radial-gradient(at 97% 96%, hsla(38, 60%, 74%, 1) 0px, transparent 50%),
+                radial-gradient(at 33% 50%, hsla(222, 67%, 73%, 1) 0px, transparent 50%),
+                radial-gradient(at 79% 53%, hsla(343, 68%, 79%, 1) 0px, transparent 50%);
+    background-color: #141432; /* A dark blue base color */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1;
+    animation: an-s 15s ease-in-out infinite; /* This animates the colors */
+}
+
+@keyframes an-s {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.2); }
+  100% { transform: scale(1); }
+}
+
+/* ... (rest of the CSS, like scrollbar styling) ... */
+/* Optional: Improve scrollbar aesthetics */
+::-webkit-scrollbar {
+    width: 8px;
+}
+::-webkit-scrollbar-track {
+    background: #1d232a;
+}
+::-webkit-scrollbar-thumb {
+    background: #3a424d;
+    border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #4a525d;
+}
