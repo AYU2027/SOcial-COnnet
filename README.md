@@ -31,8 +31,8 @@ This project is built on a powerful and popular technology stack:
     <td align="center"><strong>Add Friend Modal</strong></td>
   </tr>
   <tr>
-    <td><img src="assests/image2.png" alt="Chat Interface"></td>
-    <td><img src="assests/image3.png" alt="Add Friend Modal"></td>
+    <td><img src="frontend/src/assets/image1.png" alt="Chat Interface"></td>
+    <td><img src="frontend/src/assets/image2.png" alt="Add Friend Modal"></td>
   </tr>
 </table>
 
