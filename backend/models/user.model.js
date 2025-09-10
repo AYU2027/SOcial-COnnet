@@ -18,13 +18,20 @@ const userSchema = new mongoose.Schema({
     gender: {
         type: String,
         required: true,
-        enum: ["male", "female"], // The gender must be one of these two values
+        enum: ["male", "female"],
     },
     profilePic: {
         type: String,
         default: "",
     },
-}, { timestamps: true }); // timestamps adds createdAt and updatedAt fields
+    // --- NEW FIELD ---
+    friends: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
+        default: []
+    }],
+    // -----------------
+}, { timestamps: true });
 
 const User = mongoose.model("User", userSchema);
 

@@ -1,12 +1,12 @@
 import Conversations from "./Conversations";
 import LogoutButton from "./LogoutButton";
-import SearchInput from "./SearchInput"; // Assuming SearchInput.jsx exists
 
 const Sidebar = () => {
     return (
         <div className='border-r border-slate-500 p-4 flex flex-col'>
-            <SearchInput />
-            <div className='divider px-3'></div>
+            {/* SearchInput has been removed */}
+            <h2 className="text-lg font-semibold mb-2">Friends</h2>
+            <div className='divider px-3 mt-0'></div>
             <Conversations />
             <LogoutButton />
         </div>

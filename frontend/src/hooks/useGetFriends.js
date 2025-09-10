@@ -1,21 +1,21 @@
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
-const useGetUsers = () => {
+const useGetFriends = () => {
     const [loading, setLoading] = useState(false);
-    const [users, setUsers] = useState([]);
+    const [friends, setFriends] = useState([]);
 
     useEffect(() => {
-        const getUsers = async () => {
+        const getFriends = async () => {
             setLoading(true);
             try {
-                // Fetch from the new endpoint for ALL users
-                const res = await fetch("/api/users/all");
+                // Fetch from the new endpoint for ONLY friends
+                const res = await fetch("/api/users/friends");
                 const data = await res.json();
                 if (data.error) {
                     throw new Error(data.error);
                 }
-                setUsers(data);
+                setFriends(data);
             } catch (error) {
                 toast.error(error.message);
             } finally {
@@ -23,9 +23,9 @@ const useGetUsers = () => {
             }
         };
 
-        getUsers();
+        getFriends();
     }, []);
 
-    return { loading, users };
+    return { loading, friends };
 };
-export default useGetUsers;
+export default useGetFriends;

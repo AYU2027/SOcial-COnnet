@@ -5,6 +5,7 @@ import cookieParser from "cookie-parser";
 import authRoutes from "./routes/auth.routes.js";
 import messageRoutes from "./routes/message.routes.js";
 import userRoutes from "./routes/user.routes.js";
+import friendRoutes from "./routes/friend.routes.js"; // <-- IMPORT NEW ROUTES
 
 import connectToMongoDB from "./db/connectToMongoDB.js";
 import { app, server } from "./socket.js";
@@ -19,6 +20,7 @@ app.use(cookieParser());
 app.use("/api/auth", authRoutes);
 app.use("/api/messages", messageRoutes);
 app.use("/api/users", userRoutes);
+app.use("/api/friends", friendRoutes); // <-- USE NEW ROUTES
 
 // This is the root route handler
 app.get("/", (req, res) => {
