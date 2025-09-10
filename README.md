@@ -2,7 +2,7 @@
 
 A modern, real-time messaging web application built with the MERN stack (MongoDB, Express.js, React.js, Node.js) and Socket.IO. Inspired by the clean and fluid user experience of applications like Telegram.
 
-![Landing Page](assests/image1.png)
+![Landing Page](frontend/src/assets/image5.png)
 
 ## About The Project
 
